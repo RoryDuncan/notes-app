@@ -4,18 +4,19 @@ import svelte from 'rollup-plugin-svelte';
 export default {
   input: 'src/main.js',
   output: {
-    file: 'public/bundle.js',
+    file: 'public/scripts/bundle.js',
     format: 'iife'
   },
-  plugins: [
+  plugins: 
     svelte({
+
       // You can restrict which files are compiled
       // using `include` and `exclude`
-      include: 'src/components/**/*.html',
+      include: 'src/**/*.html',
 
       // By default, the client-side compiler is used. You
       // can also use the server-side rendering compiler
-      generate: 'ssr',
+      // generate: 'ssr',
 
       // Extract CSS into a separate file (recommended).
       // See note below
@@ -25,8 +26,8 @@ export default {
 
         // creates `main.css` and `main.css.map` — pass `false`
         // as the second argument if you don't want the sourcemap
-        css.write('public/main.css');
+        css.write('public/stylesheets/main.css');
       }
     })
-  ]
+  
 }

@@ -1,9 +1,9 @@
 
-// import HellowWorld from "./components/HelloWorld"
+import App from "./App.html"
 
-// var app = new HelloWorld({
-//   target: document.querySelector('main'),
-//   data: {
-//     name: 'world'
-//   }
-// });
+var app = new App({
+  target: document.querySelector('main'),
+  data: {
+    name: 'test 1'
+  }
+});
