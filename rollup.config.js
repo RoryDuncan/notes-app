@@ -1,13 +1,17 @@
 import * as fs from 'fs';
+import resolve from 'rollup-plugin-node-resolve';
 import svelte from 'rollup-plugin-svelte';
 
 export default {
   input: 'src/main.js',
   output: {
     file: 'public/scripts/bundle.js',
-    format: 'iife'
+    format: 'iife',
+    // external: ['svelte', 'svelte/store.js', 'store'],
+    // globals: {'svelte/store.js': 'store'},
   },
-  plugins: 
+  plugins: [
+    resolve(),
     svelte({
 
       // You can restrict which files are compiled
@@ -27,7 +31,10 @@ export default {
         // creates `main.css` and `main.css.map` — pass `false`
         // as the second argument if you don't want the sourcemap
         css.write('public/stylesheets/main.css');
-      }
+        
+      },
+      // svelte options
+      store: true,
     })
-  
+  ]
 }
