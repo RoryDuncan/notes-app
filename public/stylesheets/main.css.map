@@ -1,0 +1,14 @@
+{
+  "version": 3,
+  "file": "main.css",
+  "sources": [
+    "../../src/App.html",
+    "../../src/components/Page.html"
+  ],
+  "sourcesContent": [
+    "<Page>\n  <h1>Hey {{name}}</h1>\n</Page>\n\n<style>\n  body {\n    color: #0aa;\n  }\n</style>\n\n<script>\n  import Page from \"./components/Page.html\"\n  \n  export default {\n    components: { Page }\n  }\n</script>",
+    "<:Head>\n  <title>{{title}}</title>\n</:Head>\n<content class=\"page\">\n  <slot>\n    <p>This is an empty page.</p>\n  </slot>\n</content>\n\n<style>\n  .page {\n    padding: 2rem 2rem;\n  }\n</style>"
+  ],
+  "names": [],
+  "mappings": "AAKE,sCAAK,CAAC,AACJ,KAAK,CAAE,IAAI,AACb,CAAC;ACGD,wCAAM,CAAC,AACL,OAAO,CAAE,IAAI,CAAC,IAAI,AACpB,CAAC"
+}
