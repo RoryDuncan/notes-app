@@ -1,0 +1,42 @@
+<article>
+  <header>
+    <h2>{{title}}</h2>
+  </header>
+  
+  <section class="details">
+    
+    {{#if publishedDate}}
+      <div>
+        <label>Published:</label>
+        <time>{{publishedDate}}</time>
+      </div>
+    {{/if}}
+    
+    {{#if canonicalURL}}
+      <div>{{canonicalURL}}</div>
+    {{/if}}
+    
+    {{#if lastModified}}
+      <div>
+        <label>Last Modified</label>
+        <time>{{lastModified}}</time>
+      </div>
+    {{/if}}
+    
+  </section>
+  
+  <section>
+    <p>{{content}}</p>
+  </section>
+  
+  <section class="actions">
+    <button>Edit</button>
+  </section>
+</article>
+
+<style>
+  .details {
+    display: flex;
+    flex: 1 1 auto;
+  }
+</style>
