@@ -57,3 +57,7 @@ typings/
 # dotenv environment variables file
 .env
 
+# our built files
+public/scripts/bundle.js
+public/stylesheets/main.css
+public/stylesheets/main.css.map
