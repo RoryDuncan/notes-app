@@ -1,9 +1,13 @@
+import { Store } from 'svelte/store.js';
+import App from "./App.html";
 
-import App from "./App.html"
-
-var app = new App({
-  target: document.querySelector('main'),
-  data: {
-    name: 'test 1'
-  }
+const store = new Store({
+  name: 'world'
 });
+
+const app = new App({
+  target: document.querySelector('main'),
+  store,
+});
+
+window.store = store; // useful for debugging!
