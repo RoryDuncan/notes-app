@@ -6,7 +6,52 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Notes</title>
   <link rel="stylesheet" href="stylesheets/main.css">
+  <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:100,400,700|Source+Sans+Pro" rel="stylesheet">
 </head>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+  
+  html {
+    font-size: 16px;
+    line-height: 2em;
+  }
+
+  body {
+    font-size: 1rem;
+    font-family: 'Source Sans Pro', sans-serif;
+    padding: 0 0;
+    margin: 0 0;
+  }
+  
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 0 0 1rem 0;
+    font-size: 2rem;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 100;
+  }
+</style>
+
+<script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCpi0DYzVst7gSA6BrheGOtHpRz16WYWDM",
+    authDomain: "rory-duncan-portfolio.firebaseapp.com",
+    databaseURL: "https://rory-duncan-portfolio.firebaseio.com",
+    projectId: "rory-duncan-portfolio",
+    storageBucket: "rory-duncan-portfolio.appspot.com",
+    messagingSenderId: "1064147337311"
+  };
+  firebase.initializeApp(config);
+</script>
+
 <body>
   <main></main>
   <script src="scripts/bundle.js"></script>

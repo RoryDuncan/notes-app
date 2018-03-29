@@ -1,0 +1,41 @@
+<aside>
+  <section>
+    <h2>App</h2>
+  </section>
+  <section>
+    <NoteList />
+  </section>
+
+  <section>
+    <button>Add Note</button>
+  </section>
+</aside>
+
+<style>
+  aside {
+    min-width: 16vw;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: #f2f2f2;
+    height: 100vh;
+    padding: 2rem 2rem;
+    flex: 0 1 auto;
+    justify-content: space-between;
+  }
+  
+  section {
+    width: 100%;
+    display: block;
+  }
+</style>
+
+<script>
+  import NoteList from "./NoteList.html";
+  
+  export default {
+    components: { 
+      NoteList,
+    },
+  }
+</script>

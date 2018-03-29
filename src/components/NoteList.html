@@ -1,0 +1,31 @@
+<nav>
+  {{#if notes.length > 0}}
+    <ol>
+      {{#each notes as note, index}}
+        <li>
+          <a>{{note.title}}</a>
+        </li>
+      {{/each}}
+    </ol>
+  {{else}}
+    <p class="no-items">Empty, like the void.</p>
+  {{/if}}
+</nav>
+
+<style>
+
+  .no-items {
+    opacity: 0.5;
+  }
+  
+</style>
+
+<script>
+  export default {
+    data() {
+      return {
+        notes: [],
+      }
+    }
+  }
+</script>
