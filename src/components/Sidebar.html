@@ -1,17 +1,27 @@
 <aside>
   <section>
-    <h2>App</h2>
+    <h2 on:click="reload()">{{$title}}</h2>
   </section>
-  <section>
+  <section class="primary">
     <NoteList />
   </section>
 
-  <section>
+  <section class="actions">
     <button>Add Note</button>
   </section>
 </aside>
 
 <style>
+
+  h2 {
+    cursor: pointer;
+    color: #666;
+  }
+  
+  h2:hover {
+    color: #000;
+  }
+
   aside {
     min-width: 16vw;
     display: flex;
@@ -19,7 +29,6 @@
     align-items: flex-start;
     background-color: #f2f2f2;
     height: 100vh;
-    padding: 2rem 2rem;
     flex: 0 1 auto;
     justify-content: space-between;
   }
@@ -27,6 +36,18 @@
   section {
     width: 100%;
     display: block;
+    flex-shrink: 1;
+    padding: 1rem 1rem;
+  }
+  
+  .primary {
+    padding: 0rem 0rem;
+    flex-grow: 1;
+  }
+  
+  .actions {
+    align-self: flex-end;
+    border-top: 1px solid #d2d2d2;
   }
 </style>
 
@@ -34,6 +55,16 @@
   import NoteList from "./NoteList.html";
   
   export default {
+    
+    methods: {
+      
+      reload() {
+        console.log("hey")
+        window.location.replace("https://preview.c9users.io/robustrory/portfolio-redesign-2017/notes-app/public/index.html")
+      },
+      
+    },
+    
     components: { 
       NoteList,
     },

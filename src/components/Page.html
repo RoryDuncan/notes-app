@@ -1,9 +1,12 @@
+
 <:Head>
   <title>{{title}}</title>
 </:Head>
 
 <div class="page">
-  <h1>{{title}}</h1>
+  {{#if title}}
+    <h1>{{title}}</h1>
+  {{/if}}
   <slot>
     <p>This is an empty page.</p>
   </slot>
@@ -14,13 +17,3 @@
     padding: 2rem 2rem;
   }
 </style>
-
-<script>
-  export default {
-    data() {
-      return {
-        title: "Notes"
-      }
-    }
-  }
-</script>

@@ -1,40 +1,46 @@
-<article>
-  
-  <header>
-    <h2>{{title}}</h2>
-  </header>
-  
-  <section class="details">
+
+<:Head>
+  <title>{{note != null ? note.title : "Not found"}}</title>
+</:Head>
+
+{{#if note != null}}
+
+  <article>
+    <header>
+      <h2>{{note.title}}</h2>
+    </header>
     
-    {{#if publishedDate}}
-      <div>
-        <label>Published:</label>
-        <time>{{publishedDate}}</time>
-      </div>
-    {{/if}}
+    <section class="details">
+      
+      {{#if note.publishedDate}}
+        <div>
+          <label>Published:</label>
+          <time>{{note.publishedDate}}</time>
+        </div>
+      {{/if}}
+      
+      {{#if note.canonicalURL}}
+        <div>{{note.canonicalURL}}</div>
+      {{/if}}
+      
+      {{#if note.lastModified}}
+        <div>
+          <label>Last Modified</label>
+          <time>{{note.lastModified}}</time>
+        </div>
+      {{/if}}
+      
+    </section>
     
-    {{#if canonicalURL}}
-      <div>{{canonicalURL}}</div>
-    {{/if}}
+    <section>
+      <p>{{note.content}}</p>
+    </section>
     
-    {{#if lastModified}}
-      <div>
-        <label>Last Modified</label>
-        <time>{{lastModified}}</time>
-      </div>
-    {{/if}}
-    
-  </section>
+  </article>
   
-  <section>
-    <p>{{content}}</p>
-  </section>
-  
-  <section class="actions">
-    <button>Edit</button>
-  </section>
-  
-</article>
+{{else}}
+  <p>This doesn't exist anymore.</p>
+{{/if}}
 
 <style>
   .details {
@@ -42,3 +48,26 @@
     flex: 1 1 auto;
   }
 </style>
+
+<script>
+  
+  export default {
+    
+    data(){
+      return { note: null }
+    },
+    
+    oncreate() {
+      
+      this.store.observe("currentNoteID", id => {
+        var notes = this.store.get("notes")
+        
+        var note = notes.find(a => a.id == id) || null;
+        
+        this.set({ note })
+      })
+    }
+    
+  }
+  
+</script>

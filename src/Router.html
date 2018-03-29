@@ -1,0 +1,48 @@
+<:Component {Page} />
+
+<script>
+  /* global page */
+  
+  // pages
+  import Index from "./pages/Welcome.html";
+  import EditNote from "./pages/EditNote.html";
+  
+  
+  
+  export default {
+    
+    data() {
+      return {
+        Page: Index,
+      }
+    },
+    
+    oncreate() {
+      
+      let that = this;
+      let initialHostName = window.location;
+      console.log("init router", initialHostName)
+      
+      page("/", (context) => {
+        console.log("hey", context)
+        that.set({ Page: Index })
+      })
+      
+      page("/notes/:id", (context) => {
+        console.log("editing note", context)
+        that.store.set({currentNoteID: context.params.id})
+        that.set({ Page: EditNote })
+      })
+      
+      page("*", (context) => {
+        console.log("Page wasn't found, returning to initial host")
+        // page.redirect("/")
+        that.set({ Page: Index })
+        
+      })
+      
+      page.start();
+    },
+
+  }
+</script>

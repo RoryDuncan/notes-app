@@ -3,7 +3,7 @@
     <ol>
       {{#each notes as note, index}}
         <li>
-          <a>{{note.title}}</a>
+          <a href={{`/notes/${note.id}`}}>{{note.title}}</a>
         </li>
       {{/each}}
     </ol>
@@ -14,6 +14,28 @@
 
 <style>
 
+  ol {
+    margin: 0 0;
+    padding: 0 0;
+    list-style: none;
+    border-top: 1px solid #e6e6e6;
+  }
+  
+  a,
+  a:link,
+  a:visited {
+    text-decoration: none;
+    color: #666;
+    padding: 0.5rem 0.5rem;
+    display: block;
+    border-bottom: 1px solid #e6e6e6;
+    cursor: pointer;
+  }
+  
+  a:hover {
+    background-color: #fff;
+  }
+
   .no-items {
     opacity: 0.5;
   }
@@ -22,10 +44,17 @@
 
 <script>
   export default {
+    
     data() {
       return {
         notes: [],
       }
+    },
+    
+    oncreate() {
+      this.store.observe('notes', notes => {
+        this.set({ notes });
+      });
     }
   }
 </script>

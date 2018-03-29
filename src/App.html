@@ -1,6 +1,6 @@
 <div class="app-container">
   <Sidebar />
-  <Page title="Welcome" />
+  <Router />
 </div>
   
 
@@ -12,12 +12,13 @@
 </style>
 
 <script>
-  import Page from "./components/Page.html";
+  
+  import Router from "./Router.html";
   import Sidebar from "./components/Sidebar.html";
   
   export default {
     components: { 
-      Page, 
+      Router, 
       Sidebar,
     },
   }
