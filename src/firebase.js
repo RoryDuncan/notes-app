@@ -5,6 +5,4 @@
 */
 
 
-export default {
-  database: window.firebase.database()
-};
+export default window.firebase

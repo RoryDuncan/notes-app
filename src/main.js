@@ -4,18 +4,30 @@ import firebase from "./firebase";
 
 // test data
 var names = Object.keys(window);
-var notes = new Array(10).fill(true).map( (a, i) => ({
-  id: i,
-  isPublished: false,
-  content: "words <code>hey</code>",
-  title: names[~~(Math.random()*names.length)],
-}));
+
 
 
 const store = new Store({
   title: 'App',
-  notes: notes,
+  notes: [{title: "hey there", id: 0, content: "bingo"}],
   currentNoteID: null,
+});
+
+// get our notes
+var notesRef = firebase.database().ref("notes")
+notesRef.on("value", snapshot => {
+  
+  let values = snapshot.val();
+  let notes = [];
+  if (values != null) {
+    for (let key in values) {
+      let note = values[key]
+      note.id = key
+      notes.push(note)
+    }
+  }
+  console.log("notes:", notes)
+  store.set({ notes })
 });
 
 

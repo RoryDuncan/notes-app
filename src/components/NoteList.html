@@ -3,41 +3,67 @@
     <ol>
       {{#each notes as note, index}}
         <li>
-          <a href={{`/notes/${note.id}`}}>{{note.title}}</a>
+          <a href={{`/notes/${note.id}`}}>
+            <input type="text" value={{note.title}} />
+          </a>
         </li>
       {{/each}}
     </ol>
-  {{else}}
-    <p class="no-items">Empty, like the void.</p>
   {{/if}}
 </nav>
 
 <style>
 
+  input {
+    border: none;
+    display: block;
+    box-shadow: none;
+    background: transparent;
+    height: 100%;
+    padding: 1rem 1rem;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    width: 100%;
+    font-weight: 700;
+    color: var(--sidebar-color);
+    
+  }
+  
+  input:focus,
+  input:active {
+    border: none;
+    box-shadow: none;
+    outline: none;
+    background: #fff;
+    color: var(--header-color);
+    border-bottom: 2px solid #000;
+    cursor: text;
+  }
+
   ol {
     margin: 0 0;
     padding: 0 0;
     list-style: none;
-    border-top: 1px solid #e6e6e6;
+    border-top: 1px solid rgba(0,0,0,0.1);
   }
   
   a,
   a:link,
   a:visited {
     text-decoration: none;
-    color: #666;
-    padding: 0.5rem 0.5rem;
     display: block;
-    border-bottom: 1px solid #e6e6e6;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
     cursor: pointer;
+    padding: 0rem 0rem;
   }
   
   a:hover {
-    background-color: #fff;
+    background-color: var(--header-color);
   }
 
   .no-items {
-    opacity: 0.5;
+    padding: 1rem 1rem;
+    opacity: 0.15;
   }
   
 </style>

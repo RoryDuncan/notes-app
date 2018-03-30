@@ -6,23 +6,38 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Notes</title>
   <link rel="stylesheet" href="stylesheets/main.css">
-  <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:100,400,700|Source+Sans+Pro" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Material+Icons|Montserrat|Average|Ubuntu+Mono" rel="stylesheet">
 </head>
 <style>
+
   * {
     box-sizing: border-box;
   }
   
   html {
-    font-size: 16px;
-    line-height: 2em;
+    font-size: 18px;
+    line-height: 1.6em;
   }
 
   body {
     font-size: 1rem;
-    font-family: 'Source Sans Pro', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     padding: 0 0;
     margin: 0 0;
+    
+    --body-background-color: #f2f2f2;
+    --body-color: #cccab5;
+    --header-color: #000;
+    --sidebar-background-color: #ffeb3b; /* ffeb3b */
+    --sidebar-color: #b2b2b2;
+    
+    --primary-color: #224;
+    --secondary-color: #fff;
+    
+    
+    background-color: var(--body-background-color);
+    color: var(--body-color);
+    
   }
   
   h1,
@@ -33,8 +48,16 @@
   h6 {
     margin: 0 0 1rem 0;
     font-size: 2rem;
-    font-family: 'IBM Plex Sans', sans-serif;
-    font-weight: 100;
+    line-height: 1rem;
+    font-family: 'Average', sans-serif;
+    font-weight: 400;
+    color: var(--header-color);
+  }
+  
+  .material-icons {
+    font-size: 1em;
+    line-height: 1.6em;
+    vertical-align: bottom;
   }
 </style>
 
@@ -50,7 +73,7 @@
     storageBucket: "rory-duncan-portfolio.appspot.com",
     messagingSenderId: "1064147337311"
   };
-  firebase.initializeApp(config);
+  window.firebase.initializeApp(config);
 </script>
 
 <body>

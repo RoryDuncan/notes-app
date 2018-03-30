@@ -1,38 +1,52 @@
 <aside>
-  <section>
-    <h2 on:click="reload()">{{$title}}</h2>
-  </section>
+  <header>
+    <div class="action" on:click="reload()"><i class="material-icons">menu</i></div>
+  </header>
   <section class="primary">
     <NoteList />
   </section>
 
-  <section class="actions">
-    <button>Add Note</button>
+  <section class="create-note action" on:click="addNote()">
+    <i class="material-icons">playlist_add</i>
   </section>
 </aside>
 
 <style>
 
-  h2 {
-    cursor: pointer;
-    color: #666;
-  }
-  
-  h2:hover {
-    color: #000;
-  }
-
   aside {
-    min-width: 16vw;
+
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    background-color: #f2f2f2;
-    height: 100vh;
+    background-color: var(--sidebar-background-color);
+    color: var(--sidebar-color);
+    height: 60vh;
+    margin: 20vh 1vw;
+    width: 4rem;
     flex: 0 1 auto;
     justify-content: space-between;
+    /*width: 4rem;*/
+    transition: 0.06s ease-out all 0.1s;
   }
   
+  aside:hover {
+    height: 80vh;
+    margin: 10vh 1vw;
+    width: 20vw;
+    
+    transition: 0.18s ease-in all;
+  }
+  
+  aside:hover .primary {
+    opacity: 1;
+    transition: 0.09s ease-in opacity 0.09s;
+  }
+  
+  header {
+    text-align: center;
+  }
+  
+  header,
   section {
     width: 100%;
     display: block;
@@ -41,26 +55,57 @@
   }
   
   .primary {
+    opacity: 0;
     padding: 0rem 0rem;
     flex-grow: 1;
+
   }
   
-  .actions {
-    align-self: flex-end;
-    border-top: 1px solid #d2d2d2;
+
+  .action {
+    font-size: 2rem;
+    opacity: 0.5;
+    cursor: pointer;
   }
+  
+  .action:hover {
+    opacity: 1;
+  }
+
+
+  .create-note {
+    align-self: flex-end;
+    
+    background-color: transparent;
+    display: block;
+    padding: 1rem 1rem;
+    border: 1px solid transparent;
+    text-align: center;
+  }
+  
+  
 </style>
 
 <script>
   import NoteList from "./NoteList.html";
+  import firebase from "../firebase.js";
   
   export default {
     
     methods: {
       
       reload() {
-        console.log("hey")
+        console.log("dealing with c9.io reload")
         window.location.replace("https://preview.c9users.io/robustrory/portfolio-redesign-2017/notes-app/public/index.html")
+      },
+      
+      addNote() {
+        firebase.database().ref("notes").push({
+          isPublished: false,
+          title: "New Note",
+          canonicalURL: "",
+          content: "hello",
+        })
       },
       
     },

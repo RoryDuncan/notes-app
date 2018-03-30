@@ -3,9 +3,11 @@
   <title>{{title}}</title>
 </:Head>
 
-<div class="page">
+<div class="page {{fullSize ? 'full' : ''}}">
   {{#if title}}
-    <h1>{{title}}</h1>
+    <div class="title">
+      <h1>{{title}}</h1>
+    </div>
   {{/if}}
   <slot>
     <p>This is an empty page.</p>
@@ -13,7 +15,23 @@
 </div>
 
 <style>
+
+  h1 {
+    font-size: 3rem;
+    line-height: 1.6rem;
+  }
+  
   .page {
-    padding: 2rem 2rem;
+    width: 100%;
+    padding: 10vh 10vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  
+  .full {
+    padding: 0rem 0rem;
   }
 </style>
