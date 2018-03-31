@@ -9,7 +9,7 @@ var names = Object.keys(window);
 
 const store = new Store({
   title: 'App',
-  notes: [{title: "hey there", id: 0, content: "bingo"}],
+  notes: [],
   currentNoteID: null,
 });
 

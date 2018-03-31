@@ -20,26 +20,15 @@
     align-items: flex-start;
     background-color: var(--sidebar-background-color);
     color: var(--sidebar-color);
-    height: 60vh;
-    margin: 20vh 1vw;
-    width: 4rem;
+    height: 100vh;
+    width: 20rem;
     flex: 0 1 auto;
-    justify-content: space-between;
-    /*width: 4rem;*/
+    justify-content: flex-start;
     transition: 0.06s ease-out all 0.1s;
   }
   
   aside:hover {
-    height: 80vh;
-    margin: 10vh 1vw;
-    width: 20vw;
-    
     transition: 0.18s ease-in all;
-  }
-  
-  aside:hover .primary {
-    opacity: 1;
-    transition: 0.09s ease-in opacity 0.09s;
   }
   
   header {
@@ -55,10 +44,7 @@
   }
   
   .primary {
-    opacity: 0;
     padding: 0rem 0rem;
-    flex-grow: 1;
-
   }
   
 
@@ -75,12 +61,27 @@
 
   .create-note {
     align-self: flex-end;
-    
+    flex-grow: 1;
     background-color: transparent;
     display: block;
     padding: 1rem 1rem;
     border: 1px solid transparent;
     text-align: center;
+    vertical-align: bottom;
+    justify-content: end;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  
+  /* horizontal center alignment */
+  .create-note .material-icons {
+    margin: 0 auto;
+  }
+  
+  .create-note:hover {
+    background-color: rgba(255,255,255,0.1);
+    transition: 0.18s ease-in all;
   }
   
   
