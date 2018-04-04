@@ -1,6 +1,6 @@
 import { Store } from 'svelte/store.js';
 import App from "./App.html";
-import firebase from "./firebase";
+import { database } from "./firebase";
 
 // test data
 var names = Object.keys(window);
@@ -10,11 +10,11 @@ var names = Object.keys(window);
 const store = new Store({
   title: 'App',
   notes: [],
-  currentNoteID: null,
+  activeNote: null,
 });
 
 // get our notes
-var notesRef = firebase.database().ref("notes")
+var notesRef = database.ref("notes")
 notesRef.on("value", snapshot => {
   
   let values = snapshot.val();

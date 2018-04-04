@@ -29,8 +29,11 @@
       })
       
       page("/notes/:id", (context) => {
-        console.log("editing note", context)
-        that.store.set({currentNoteID: context.params.id})
+        let id = context.params.id;
+        let notes = this.store.get("notes")
+        let activeNote = notes.find(a => a.id == id) || null;
+        console.log("changing active note to", activeNote)
+        that.store.set({ activeNote })
         that.set({ Page: EditNote })
       })
       

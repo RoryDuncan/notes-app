@@ -5,4 +5,6 @@
 */
 
 
-export default window.firebase
+export const firebase = window.firebase;
+export const database = firebase.database();
+  

@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import resolve from 'rollup-plugin-node-resolve';
+import commonjs from 'rollup-plugin-commonjs';
 import svelte from 'rollup-plugin-svelte';
 
 export default {
@@ -11,7 +12,16 @@ export default {
     // globals: {'svelte/store.js': 'store'},
   },
   plugins: [
+    
+    // resolve node.js modules from node_modules
     resolve(),
+    
+    // auto convert commonjs / nodejs modules to es6 modules
+    commonjs({
+      sourceMap: false,  // Default: true
+    }),
+    
+    // transform svelte web components into their scripts
     svelte({
 
       // You can restrict which files are compiled

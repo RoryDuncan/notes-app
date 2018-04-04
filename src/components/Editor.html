@@ -1,0 +1,167 @@
+
+<:Head>
+  <title>{{note != null ? note.title : "Not found"}}</title>
+</:Head>
+
+{{#if note != null}}
+
+  <article>
+    
+    <section class="details">
+      {{#if note.publishedDate}}
+        <div>
+          <label>Published:</label>
+          <time>{{note.publishedDate}}</time>
+        </div>
+      {{/if}}
+      
+      {{#if note.canonicalURL}}
+        <div>{{note.canonicalURL}}</div>
+      {{/if}}
+      
+      {{#if note.lastModified}}
+        <div>
+          <label>Last Modified</label>
+          <time>{{note.lastModified}}</time>
+        </div>
+      {{/if}}
+    </section>
+    
+    <pre class="note-editor" ref:pre ><code class="note-editor__textarea language-markdown" 
+      ref:editor 
+      on:keydown='keydown(event, note.id, this.innerText)' 
+      on:keyup='keyup(event, note.id, this.innerText)'
+      contenteditable >{{{tokenizedContent}}}</code></pre>
+    
+  </article>
+  
+{{else}}
+  <p>This doesn't exist anymore.</p>
+{{/if}}
+
+<style>
+
+  article {
+    display: flex;
+    flex: 1 0 auto;
+    height: 100%;
+    width: 100%;
+  }
+
+  .details {
+    display: flex;
+    flex: 1 1 auto;
+    display: none;
+  }
+  
+  .note-editor {
+    flex-grow: 1;
+    margin: 0 0;
+    padding: 0 0;
+    
+  }
+  
+  .note-editor__textarea {
+    width: 100%;
+    height: 100%;
+    display: block;
+    padding: 2rem 2rem 2rem 2rem;
+    border: none;
+    font-size: 1rem;
+    font-family: 'Ubuntu Mono', monospace;
+    color: var(--text-editor-color);
+    background-color: transparent;
+    
+  }
+  
+  .note-editor__textarea:focus {
+    outline: none;
+    box-shadow: none;
+  }
+  
+</style>
+
+<script>
+  /* global Prism NodeFilter Range */
+  import { debounce } from "../utilities.js";
+  import { database } from "../firebase.js";
+  import Caret from "../caret.js";
+  
+  export default {
+    
+    oncreate(){
+      this.store.observe("activeNote", note => this.set({ note }))
+    },
+    
+    computed: {
+      tokenizedContent: note => {
+        if (note != null) {
+          return Prism.highlight(note.content || "", Prism.languages.markdown)
+        }
+        
+        return "";
+      },
+    },
+    
+    methods: {
+      
+      keydown(e) {
+        
+        if (e.key === "Tab") {
+          if (e.shiftKey) {
+            let selection = window.getSelection()
+            let range = selection.getRangeAt(0)
+            if (selection.baseOffset >= 2) {
+              range.setEnd(range.endContainer, range.endOffset - 2)
+              document.execCommand('delete', false);
+            }
+          }
+          else {
+            document.execCommand('insertHTML', false, '  ');
+          }
+          e.preventDefault();
+          return;
+        }
+        
+      },
+      
+      keyup(e, noteID, content) {
+        
+        
+        if (e.key === "Enter") {
+          document.execCommand('insertHTML', false, '\n');
+        }
+        
+        this.caret = new Caret(e);
+        this.render(content)
+        this.save(noteID, content);
+      },
+      
+      render(content) {
+        
+        // cache our selection
+        this.caret.save(this.refs.editor);
+        
+        // update our store value, which is observed
+        // causing a re-render to our data
+        let activeNote = this.store.get("activeNote");
+        activeNote.content = content;
+        this.store.set({ activeNote });
+        
+        // re-apply our selection
+        this.caret.restore(this.refs.editor);
+        
+      },
+      
+      save: debounce( 1000, (noteID, content) => {
+        database.ref(`notes/${noteID}/content`)
+          .set(content)
+          .then( () => console.log(`saved ${noteID}`));
+      }),
+      
+      
+    }
+    
+  }
+  
+</script>
