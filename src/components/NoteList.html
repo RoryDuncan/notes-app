@@ -4,7 +4,7 @@
       {{#each notes as note, index}}
         <li>
           <a href={{`/notes/${note.id}`}}>
-            <input type="text" value={{note.title}} />
+            <input type="text" value={{note.title}} on:keyup='keyup(event, note.id, this.value)' />
           </a>
         </li>
       {{/each}}
@@ -67,8 +67,12 @@
 </style>
 
 <script>
+
+  import { debounce } from "../utilities.js";
+  import { database } from "../firebase.js";
+  
   export default {
-    
+  
     data() {
       return {
         notes: [],
@@ -76,9 +80,24 @@
     },
     
     oncreate() {
+      
+      this.saveDebounced = debounce(1000, this.save)
+      
       this.store.observe('notes', notes => {
         this.set({ notes });
       });
-    }
+    },
+    
+    methods: {
+      
+      keyup(event, noteID, content) {
+        this.saveDebounced(noteID, content)
+      },
+      
+      save(noteID, content) {
+        database.ref(`/notes/${noteID}/title`).set(content)
+      },
+
+    },
   }
 </script>

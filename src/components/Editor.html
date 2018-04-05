@@ -27,11 +27,18 @@
       {{/if}}
     </section>
     
-    <pre class="note-editor" ref:pre ><code class="note-editor__textarea language-markdown" 
-      ref:editor 
-      on:keydown='keydown(event, note.id, this.innerText)' 
-      on:keyup='keyup(event, note.id, this.innerText)'
-      contenteditable >{{{tokenizedContent}}}</code></pre>
+    <!--<pre class="note-editor" ref:pre ><code class="note-editor__textarea language-markdown" -->
+    <!--  ref:editor -->
+    <!--  on:keydown='keydown(event, note.id, this.innerText)' -->
+    <!--  on:keyup='keyup(event, note.id, this.innerText)'-->
+    <!--  contenteditable >{{{tokenizedContent}}}</code></pre>-->
+    
+    <div class="note-editor">
+      <textarea 
+        class="note-editor__textarea"
+        ref:editor 
+        on:keyup='keyup(event, note.id, this.value)'>{{note.content}}</textarea>
+    </div>
     
   </article>
   
@@ -67,8 +74,8 @@
     display: block;
     padding: 2rem 2rem 2rem 2rem;
     border: none;
-    font-size: 1rem;
-    font-family: 'Ubuntu Mono', monospace;
+    font-size: 0.8rem;
+    font-family: 'Source Code Pro', monospace;
     color: var(--text-editor-color);
     background-color: transparent;
     
@@ -91,6 +98,8 @@
     
     oncreate(){
       this.store.observe("activeNote", note => this.set({ note }))
+      this.save = debounce( 1000, this.save.bind(this))
+      this.render = debounce( 1000, this.render.bind(this))
     },
     
     computed: {
@@ -128,17 +137,17 @@
       keyup(e, noteID, content) {
         
         
-        if (e.key === "Enter") {
-          document.execCommand('insertHTML', false, '\n');
-        }
+        // if (e.key === "Enter") {
+        //   document.execCommand('insertHTML', false, '\n');
+        // }
         
-        this.caret = new Caret(e);
-        this.render(content)
+        this.render(e, content)
         this.save(noteID, content);
       },
       
-      render(content) {
+      render(e, content) {
         
+        this.caret = new Caret(e);
         // cache our selection
         this.caret.save(this.refs.editor);
         
@@ -153,11 +162,11 @@
         
       },
       
-      save: debounce( 1000, (noteID, content) => {
+      save(noteID, content) {
         database.ref(`notes/${noteID}/content`)
           .set(content)
           .then( () => console.log(`saved ${noteID}`));
-      }),
+      },
       
       
     }
