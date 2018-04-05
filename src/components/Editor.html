@@ -109,7 +109,7 @@
       
       this.codeMirror = CodeMirror.fromTextArea(this.refs.editor, {
         mode: "markdown",
-        theme: "monokai",
+        theme: "notes-app",
       });
       
       this._save = debounce(1000, this.save.bind(this))
