@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Notes</title>
   <link rel="stylesheet" href="stylesheets/main.css">
-  <link href="https://fonts.googleapis.com/css?family=Material+Icons|Montserrat|Average|Fira+Mono" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Material+Icons|Overpass+Mono" rel="stylesheet">
 </head>
 <style>
 
@@ -21,22 +21,19 @@
 
   body {
     font-size: 1rem;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Overpass Mono', sans-serif;
     padding: 0 0;
     margin: 0 0;
     
-    --primary-color: #e6b54c;
-    --secondary-color: #e6b54c;
-    
     --body-background-color: #000;
-    --text-editor-color: #0b0b00;
+    --text-editor-color: #b2b2b2;
     
     --header-color: #fff;
-    --body-color: #b2b2b2;
+    --body-color: #86868f;
     
-    --sidebar-background-color: #000;
-    --sidebar-color: #b2b2b2;
-    --sidebar-hover-background: #010101;
+    --sidebar-background-color: var(--body-background-color);
+    --sidebar-color: var(--body-color);
+    --sidebar-hover-background: var(--body-background-color);
     
     
     background-color: var(--body-background-color);
@@ -53,7 +50,7 @@
     margin: 0 0 1rem 0;
     font-size: 2rem;
     line-height: 1rem;
-    font-family: 'Average', sans-serif;
+    /*font-family: 'Average', sans-serif;*/
     font-weight: 400;
     color: var(--header-color);
   }

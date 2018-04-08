@@ -1,4 +1,7 @@
-.cm-s-notes-app.CodeMirror { background: #000; color: #088; }
+.cm-s-notes-app.CodeMirror { 
+  background: var(--body-background-color);
+  color: var(--text-editor-color);
+}
 .cm-s-notes-app div.CodeMirror-selected { background: #d6d5d4; }
 
 .cm-s-notes-app .CodeMirror-line::selection, .cm-s-notes-app .CodeMirror-line > span::selection, .cm-s-notes-app .CodeMirror-line > span > span::selection { background: #d6d5d4; }
