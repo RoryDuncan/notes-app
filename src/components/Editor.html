@@ -1,89 +1,28 @@
 
-<:Head>
-  <title>{{note != null ? note.title : "Not found"}}</title>
-</:Head>
-
-{{#if note != null}}
-
-  <article>
-    
-    <section class="details">
-      {{#if note.publishedDate}}
-        <div>
-          <label>Published:</label>
-          <time>{{note.publishedDate}}</time>
-        </div>
-      {{/if}}
-      
-      {{#if note.canonicalURL}}
-        <div>{{note.canonicalURL}}</div>
-      {{/if}}
-      
-      {{#if note.lastModified}}
-        <div>
-          <label>Last Modified</label>
-          <time>{{note.lastModified}}</time>
-        </div>
-      {{/if}}
-    </section>
-    
-    <div class="note-editor">
-      <textarea 
-        class="note-editor__textarea"
-        ref:editor 
-        spellcheck="false">{{content}}</textarea>
-    </div>
-    
-    
-  </article>
-  
-{{else}}
-  <p>This doesn't exist anymore.</p>
-{{/if}}
+<div class="note-editor">
+  <textarea 
+    class="note-editor__textarea"
+    ref:textarea>{{content}}</textarea>
+</div>
 
 <style>
 
-  article {
-    display: flex;
-    flex: 1 0 auto;
-    height: 100%;
-    width: 100%;
-  }
-
-  .details {
-    display: flex;
-    flex: 1 1 auto;
-    display: none;
-  }
-  
   .note-editor {
     flex-grow: 1;
     margin: 0 0;
     padding: 0 0;
     
   }
-  
-  .note-editor__textarea {
-    width: 100%;
-    height: 100%;
-    display: block;
-    padding: 2rem 2rem 2rem 2rem;
-    border: none;
-    font-size: 0.8rem;
-    font-family: "Fira Mono";
-    color: var(--text-editor-color);
-    background-color: transparent;
-    
-  }
+
   
   .note-editor__textarea:focus {
     outline: none;
     box-shadow: none;
   }
   
-  .CodeMirror {
-    height: 100vh;
-  }
+  /*.CodeMirror {*/
+  /*  height: 100vh;*/
+  /*}*/
   
 </style>
 
@@ -94,17 +33,6 @@
   
   export default {
     
-    data() {
-      return {
-        note: {
-          canonicalURL: "",
-          title: "",
-          content: "",
-          isPublished: false,
-        }
-      }
-    },
-    
     oncreate(){
       
       this.codeMirror = CodeMirror.fromTextArea(this.refs.editor, {
@@ -112,23 +40,23 @@
         theme: "notes-app",
       });
       
-      this._save = debounce(1000, this.save.bind(this))
+      // this._save = debounce(1000, this.save.bind(this))
       
       // observables
-      this.store.observe("activeNote", note => this.set({ note }))
+      // this.store.observe("activeNote", note => this.set({ note }))
       
       // changing the editor updates our internal model
-      this.codeMirror.on("inputRead", (codeMirror) => {
-        const note = this.get("note")
-        note.content = codeMirror.getValue()
-        this.set({ note })
-      })
+      // this.codeMirror.on("inputRead", (codeMirror) => {
+      //   const note = this.get("note")
+      //   note.content = codeMirror.getValue()
+      //   this.set({ note })
+      // })
       
       // changes to our internal model save to DB
-      this.observe("note", note => this._save(note))
+      // this.observe("note", note => this._save(note))
       
       // changing the 'page' updates our editor
-      this.store.observe("activeNote", note => this.codeMirror.setValue(note.content))
+      // this.store.observe("activeNote", note => this.codeMirror.setValue(note.content))
       
 
     },
