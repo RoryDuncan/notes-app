@@ -1,0 +1,92 @@
+<article class="card">
+  <h2 class="card__title">{{title}}</h2>
+  <textarea ref:editor>{{content}}</textarea>
+</article>
+
+
+<style>
+  
+  .card {
+    
+    --background-color: #1b2b2d;
+    --background-color-hover: #222d31;
+    --title-background-color: var(--background-color);
+    --title-color: #fff;
+    --scrollbar-color: #2f474c;
+    --scrollbar-background-color: var(--background-color);
+    
+    box-shadow: 0px 0px 2px rgba(0,0,0,0.25);
+    margin: 0 0;
+    padding: 0 0;
+    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: var(--background-color);
+    transition: 0.2s ease-out all;
+  }
+  
+  
+  .card__title {
+    font-size: 0.65rem;
+    line-height: 1.8rem;
+    text-transform: uppercase;
+    padding: 0rem 0.5rem;
+    color: var(--title-color);
+    background-color: var(--title-background-color);
+    font-family: "Overpass Mono", monospace;
+  }
+  
+  textarea {
+    flex: 1 0 auto;
+    display: block;
+    width: 100%;
+    padding: 2rem 1rem 5rem 1rem;
+    background-color: var(--background-color);
+    margin: 0 0;
+    color: #b2b2b2;
+    border: none;
+    min-height: 10rem;
+    resize: vertical;
+    font-family: "Overpass Mono", monospace;
+  }
+  
+  textarea::-webkit-scrollbar {
+    background: #0b1b1b;
+    width: 0.25rem;
+  }
+  
+  textarea::-webkit-scrollbar-track {
+    background-color: var(--scrollbar-background-color);
+  }
+  
+  textarea::-webkit-scrollbar-thumb {
+    width: 0.25rem;
+    background-color: var(--scrollbar-color);
+  }
+  
+  textarea::-webkit-resizer {
+    /*background-color: transparent;*/
+  }
+  
+  /* States */
+  
+  textarea:focus {
+    box-shadow: none;
+    outline: none;
+  }
+  
+  .card:focus-within {
+    --background-color: var(--background-color-hover);
+  }
+  
+  
+</style>
+
+<script>
+  export default {
+    data() {
+      return {}
+    }
+  }
+</script>

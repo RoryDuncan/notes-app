@@ -1,47 +1,35 @@
-<nav>
-  {{#if notes.length > 0}}
-    <ol>
-      {{#each notes as note, index}}
-        <li>
-          <a href={{`/notes/${note.id}`}}>
-            <input type="text" value={{note.title}} on:keyup='keyup(event, note.id, this.value)' />
-          </a>
-        </li>
-      {{/each}}
-    </ol>
-  {{/if}}
-</nav>
+
+{{#if notes.length > 0}}
+  <ul class="note-list">
+    {{#each notes as note, index}}
+      <li class="note-list__item">
+        <Card id={{note.id}} title={{note.title}} index={{index}} content={{note.content}} />
+      </li>
+    {{/each}}
+  </ul>
+{{/if}}
+
 
 <style>
 
-  input {
-    border: none;
-    display: block;
-    box-shadow: none;
-    background: transparent;
-    height: 100%;
-    padding: 1rem 1rem;
-    cursor: pointer;
-    width: 100%;
-    font-weight: 400;
-    color: var(--sidebar-color);
-  }
-  
-  input:focus,
-  input:active {
-    border: none;
-    box-shadow: none;
-    outline: none;
-    background: transparent;
-    color: var(--sidebar-color);
-    cursor: text;
-  }
-
-  ol {
+  .note-list {
     margin: 0 0;
     padding: 0 0;
     list-style: none;
-    border-top: 1px solid rgba(0,0,0,0.1);
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-items: center;
+    align-items: stretch;
+    justify-content: space-around;
+  }
+  
+  .note-list .note-list__item {
+    --size: 26rem;
+    flex: 1 1 var(--size);
+    margin: 1rem 1rem 0rem 0rem;
+    min-height: var(--size);
+    
   }
   
   a,
@@ -49,7 +37,6 @@
   a:visited {
     text-decoration: none;
     display: block;
-    border-bottom: 1px solid rgba(0,0,0,0.1);
     cursor: pointer;
     padding: 0rem 0rem;
   }
@@ -69,6 +56,7 @@
 
   import { debounce } from "../utilities.js";
   import { database } from "../firebase.js";
+  import Card from "./Card.html";
   
   export default {
   
@@ -96,7 +84,8 @@
       save(noteID, content) {
         database.ref(`/notes/${noteID}/title`).set(content)
       },
-
     },
+    
+    components: { Card }
   }
 </script>
