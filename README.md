@@ -1,7 +1,19 @@
 # notes-app
 
 
-## Notes Schema
+## Schemas
+
+### Board
+
+```
+{
+  id: <uuid>,
+  title: <string>,
+  notes: <List of NoteID's>
+}
+```
+
+### Note
 
 ```
 {
@@ -17,7 +29,7 @@
 
 ## UI-Refactor roadmap:
 
-- [ ] Update Editor component to save data. Only pass ID and intial content
+- [ ] Update Editor component to save data. Only pass ID and initial content
 - [ ] Create 'Board' Abstraction: 
   - `ID`, list of `note.ID`s, a `title`, and a `content` field.
 - [ ] Re-Create sidebar with concept of boards.
