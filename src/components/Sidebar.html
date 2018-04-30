@@ -1,98 +1,117 @@
-<aside>
-  <header>
-    <div class="action" on:click="reload()"><i class="material-icons">menu</i></div>
-  </header>
-  <section class="primary">
-    
-  </section>
+<nav>
+  
+  
+  <button class="action" on:click="reload()"><i class="material-icons">autorenew</i></button>
+  <button class="action {{boardPanelActive ? 'active' : ''}}" on:click="toggleBoardPanel()">
+    <i class="material-icons">{{ boardPanelActive ? "close" : "dashboard" }}</i>
+  </button>
+  
 
-  <section class="create-note action" on:click="addNote()">
-    <i class="material-icons">playlist_add</i>
-  </section>
-</aside>
 
+</nav>
+
+{{#if boardPanelActive}}
+  <div class="overlay">
+    <div class="panel">
+      <BoardList />
+    </div>
+  </div>
+  {{/if}}
 <style>
 
-  aside {
-
+  nav {
+    border-right: 1px solid rgba(0,0,0,0.5);
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    justify-items: middle;
     background-color: var(--sidebar-background-color);
     color: var(--sidebar-color);
     height: 100vh;
-    width: 20rem;
-    flex: 0 1 auto;
-    justify-content: flex-start;
-    transition: 0.06s ease-out all 0.1s;
+    padding: 2rem 0;
   }
   
-  aside:hover {
-    background-color: var(--sidebar-hover-background);
-    transition: 0.18s ease-in all;
-  }
-  
-  header {
-    text-align: center;
-  }
-  
-  header,
-  section {
-    width: 100%;
-    display: block;
-    flex-shrink: 1;
-    padding: 1rem 1rem;
-  }
-  
-  .primary {
-    padding: 0rem 0rem;
-  }
-  
-
-  .action {
-    font-size: 2rem;
-    opacity: 0.5;
+  nav button {
+    background: var(--sidebar-background-color);
+    border: none;
+    color: var(--sidebar-color);
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    line-height: 1rem;
+    border-bottom: 1px solid rgba(0,0,0,0.25);
     cursor: pointer;
+    box-sizing: content-box;
   }
   
-  .action:hover {
-    opacity: 1;
+  nav button:active,
+  nav button.active{
+    text-shadow: 0px 0px 8px #fff, 0px 0px 3px #ffe;
+    color: #fff;
+    background-color: var(--panel-background-color);
+  }
+  
+  nav button:focus {
+    outline: none;
+    box-shadow: none;
+
   }
 
+  .material-icons {
+    font-size: 1em;
+  }
+  
+  .overlay {
+    position: relative;
+  }
 
-  .create-note {
-    align-self: flex-end;
-    flex-grow: 1;
-    background-color: transparent;
-    display: block;
-    padding: 1rem 1rem;
-    border: 1px solid transparent;
-    text-align: center;
-    vertical-align: bottom;
-    justify-content: end;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  
+  .panel {
+    position: absolute;
+    background-color: var(--panel-background-color);
+    background-image: linear-gradient(120deg, #FF512F 0%, #DD2476 100%);
+    padding: 2rem 5vw 2rem;
+    top: 3rem;
+    left: 3rem;
+    max-height: 90vh;
+    width: 65vw;
+    min-width: 24rem;
+    max-width: 60rem;
+    border: 1px solid #000;
+    box-shadow: 0px 0px 8px rgba(0,0,0,0.5);
+    background: linear-gradient(240deg, #FF512F 0%, #DD2476 100%), url("../images/stardust.png");
+    animation: 6s linear starfield infinite;
+    background-blend-mode: overlay;
+    background-repeat: repeat;
+    will-change: background-position;
+    
   }
   
-  /* horizontal center alignment */
-  .create-note .material-icons {
-    margin: 0 auto;
+  @keyframes starfield {
+    from {
+      background-position: 0% 0%, 0px 0%;
+    }
+    
+    
+    to {
+      background-position: 0% 0%, 3990px -798px;
+    }
   }
-  
-  .create-note:hover {
-    background-color: rgba(255,255,255,0.05);
-    transition: 0.18s ease-in all;
-  }
-  
   
 </style>
 
 <script>
-  import NoteList from "./NoteList.html";
-  import {database } from "../firebase.js";
+  
+  import BoardList from "./BoardList.html";
+  import { database } from "../firebase.js";
   
   export default {
+    
+    data() {
+      return {
+        boardPanelActive: true,
+      }
+      
+    },
     
     methods: {
       
@@ -101,19 +120,17 @@
         window.location.replace("https://preview.c9users.io/robustrory/portfolio-redesign-2017/notes-app/public/index.html")
       },
       
-      addNote() {
-        database.ref("notes").push({
-          isPublished: false,
-          title: "New Note",
-          canonicalURL: "",
-          content: "hello",
-        })
+      toggleBoardPanel() {
+        var boardPanelActive = !(this.get("boardPanelActive"))
+        console.log(boardPanelActive)
+        this.set({ boardPanelActive });
       },
       
     },
     
     components: { 
-      NoteList,
+      BoardList,
     },
+    
   }
 </script>
