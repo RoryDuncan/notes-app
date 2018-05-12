@@ -28,11 +28,11 @@
         that.set({ Page: Index })
       })
       
-      page("/notes/:id", (context) => {
+      page("/boards/:id", (context) => {
         let id = context.params.id;
-        let notes = this.store.get("notes")
-        let activeNote = notes.find(a => a.id == id) || null;
-        console.log("changing active note to", activeNote)
+        let boards = this.store.get("boards")
+        let activeBoard = boards.find(a => a.id == id) || null;
+        
         that.store.set({ activeNote })
         that.set({ Page: EditNote })
       })

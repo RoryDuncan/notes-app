@@ -68,10 +68,15 @@
     
     oncreate() {
       
+      let that = this;
       this.saveDebounced = debounce(1000, this.save)
       
-      this.store.observe('notes', notes => {
-        this.set({ notes });
+      this.store.observe('boards', boards => {
+        if ( that.boardID ) {
+          boards.find(a => a.id ===  that.boardID)
+          
+        }
+        // this.set({ notes });
       });
     },
     

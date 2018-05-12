@@ -3,31 +3,29 @@ import App from "./App.html";
 import { database } from "./firebase";
 
 // test data
-var names = Object.keys(window);
-
-
 
 const store = new Store({
   title: 'App',
-  notes: [],
-  activeNote: null,
+  boards: [],
+  notes: [] // deprecated
 });
 
 // get our notes
-var notesRef = database.ref("notes")
-notesRef.on("value", snapshot => {
+var boardsRef = database.ref("boards")
+boardsRef.on("value", snapshot => {
   
   let values = snapshot.val();
-  let notes = [];
+  let boards = [];
+  
   if (values != null) {
     for (let key in values) {
-      let note = values[key]
-      note.id = key
-      notes.push(note)
+      let board = values[key]
+      board.id = key
+      boards.push(board)
     }
   }
-  console.log("notes:", notes)
-  store.set({ notes })
+  console.log("boards:", boards)
+  store.set({ boards })
 });
 
 
